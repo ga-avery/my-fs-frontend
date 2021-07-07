@@ -1,0 +1,21 @@
+.fileUploader {
+	grid-area: main;
+	padding: 1rem;
+	background: lightsteelblue;
+	border-radius: 1rem;
+	display: grid;
+	gap: 0.5rem;
+  grid-auto-rows: min-content;
+}
+.fileUploader__clip {
+  cursor: pointer;
+}
+.fileUploader__upload {
+}
+.fileUploader__uploadContent {
+  display: inline-flex;
+  flex-direction:column;
+  background: lightcoral;
+  border-radius: 0.5rem;
+  padding:0.5rem;
+}
