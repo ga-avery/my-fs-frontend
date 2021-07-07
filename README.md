@@ -63,6 +63,37 @@ This app is for people who would like yet another online file store with minimal
   }, [file]);
 ```
 ```js
+app.post('/', async (rq, rs) => {
+  const id = rq.headers['x-user-id'];
+  const file = rq.files.file;
+  const { name, mimetype } = file;
+  const hash = getSha256(file.data);
+  let dbFile = await DBFile.findOne({ hash });
+  let ext = `${rq.files.file.name.split('.').pop()}`;
+  if (!dbFile) {
+    try {
+      await file.mv(`${__dirname}/static/${hash}.${ext}`);
+      dbFile = new DBFile({
+        hash,
+        name,
+        mimetype,
+        size: file.size,
+      });
+      await dbFile.save();
+    } catch (error) {
+      return rs.send(error);
+    }
+  }
+  if (id) {
+    const user = await User.findOne({ _id: id });
+    user.files.push(dbFile.id);
+    await user.save();
+  }
+  rs.send(`${BACKEND}/${numToLetter(dbFile.id)}`);
+
+});
+```
+```js
 /**
  * @param {number} num 
  * @returns {string} string
