@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { authorizedFetch } from '../util/setAuthToken';
-const BACKEND = process.env.BACKEND;
+const BACKEND = process.env.BACKEND || 'https://my-fs.herokuapp.com';
 export const Profile = props => {
   const { handleLogout, files, setFiles } = props;
   const { exp, id, name, email } = props.user;

@@ -12,7 +12,7 @@ import {
   PrivateRoute, Profile, Signup,
 } from './components';
 
-const BACKEND = process.env.BACKEND;
+const BACKEND = process.env.BACKEND || 'https://my-fs.herokuapp.com';
 
 function App() {
   const [user, setUser] = useState('');

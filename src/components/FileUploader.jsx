@@ -1,6 +1,6 @@
 import './FileUploader.css';
 import { useState, memo, useEffect } from "react";
-const BACKEND = process.env.BACKEND;
+const BACKEND = process.env.BACKEND || 'https://my-fs.herokuapp.com';
 const TextToClip = props => {
   const { text } = props;
 
