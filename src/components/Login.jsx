@@ -2,7 +2,7 @@ import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { authorizedFetch, setAuthToken } from "../util/setAuthToken";
-const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const BACKEND = process.env.BACKEND;
 export const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ export const Login = (props) => {
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
       body: JSON.stringify(userData),
     };
-    const post = await authorizedFetch(`${REACT_APP_SERVER_URL}/api/users/login`, init);
+    const post = await authorizedFetch(`${BACKEND}/api/users/login`, init);
     if (!post.ok) {
       alert('either username or password are incorrect');
       return;
