@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# file-store
+![screenshot](screenshot.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Table of Contents
+* [technology used](#technology-used)
+* [general approach](#general-approach)
+* [installation](#installation)
+* [user stories](#user-stories)
+* [wireframes](#wireframes)
+* [unsolved problems](#unsolved-problems)
+* [code snippets](#code-snippets)
 
-## Available Scripts
+## Technology used
+* MongoDB
+* Express
+* React
+* Node
 
-In the project directory, you can run:
+## General Approach
+For this project, I started with the user-stories for my app. They are very simple, however the implementation was a bit trickier than I had planned out. After user-stories 
 
-### `yarn start`
+## Installation
+Installation is as follows
+* host mongodb instance somewhere
+* add DB_URL, JWT_SECRET, and BACKEND variables to your backend environment (where BACKEND is the final URL of your backend server and DB_URL is the final URL of your mongodb instance)
+* add BACKEND variable to your frontend environment
+* run `npm i` on frontend and backend environments and start them.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## User Stories
+This app is for people who would like yet another online file store with minimal rate-limits and a simple interface.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Wireframes
+![wireframe-1](wireframe.png)
 
-### `yarn test`
+## Unsolved Problems
+* [] Currently this project does not have in-built rate-limiting. In the future I would like to add this in, giving a quota per user and for the server as a whole.
+* [] Currently this project has a lazy-delete feature, in the future to help with quota management I would like to implement this in such a way that the backend will not get full of inaccessible files.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Code Snippets
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```js
+// FileUploader.jsx
+// upload a file with progress, actively adding in the user-id to the request to assign the file to a user
+  useEffect(() => {
+    console.log('Upload', id);
+    const request = new XMLHttpRequest();
+    request.open('POST', `${BACKEND}/`);
+    if (isAuthenticated) {
+      request.setRequestHeader('X-User-ID', id);
+    }
+    const data = new FormData();
+    data.append('file', file);
+    request.upload.addEventListener('progress', event => {
+      setProgress(event.loaded / event.total);
+    });
+    request.addEventListener('readystatechange', _ => {
+      if (request.readyState === XMLHttpRequest.DONE) {
+        setCopy(request.responseText);
+        setFiles(files.concat(request.responseText));
+      }
+    });
+    request.send(data);
+  }, [file]);
+```
