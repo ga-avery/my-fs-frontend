@@ -1,7 +1,7 @@
 import { authorizedFetch } from "../util/setAuthToken";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
-const REACT_APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const BACKEND = process.env.BACKEND;
 export const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,7 +49,7 @@ export const Signup = () => {
         body: JSON.stringify(payload)
       };
       const response = await authorizedFetch(
-        `${REACT_APP_SERVER_URL}/api/users/signup`,
+        `${BACKEND}/api/users/signup`,
         init
       );
       if (!response.ok) {
