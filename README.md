@@ -62,3 +62,39 @@ This app is for people who would like yet another online file store with minimal
     request.send(data);
   }, [file]);
 ```
+```js
+/**
+ * @param {number} num 
+ * @returns {string} string
+ */
+function numToLetter(num) {
+  if (isNaN(num)) {
+    return NaN;
+  }
+  let quotient = Number(num) + 456_976;
+  let number = [];
+  let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  do {
+    const remainder = quotient % 26;
+    quotient = Math.floor(quotient / 26);
+    number.push(alphabet[remainder]);
+  } while (quotient);
+  return number.reverse().join('');
+}
+
+/**
+ * @param {string} letters 
+ * @returns {number}
+ */
+function lettersToNum(letters) {
+  if (!/^[a-z]+$/.test(letters)) {
+    return -1;
+  }
+  return letters
+    .split('')
+    .reverse()
+    .map(char => 'abcdefghijklmnopqrstuvwxyz'.indexOf(char))
+    .reduce((acc, cur, idx) => acc + cur * 26 ** idx)
+    - 456_976;
+}
+```
