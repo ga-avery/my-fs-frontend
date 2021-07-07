@@ -33,8 +33,8 @@ This app is for people who would like yet another online file store with minimal
 ![wireframe-1](wireframe.png)
 
 ## Unsolved Problems
-* [] Currently this project does not have in-built rate-limiting. In the future I would like to add this in, giving a quota per user and for the server as a whole.
-* [] Currently this project has a lazy-delete feature, in the future to help with quota management I would like to implement this in such a way that the backend will not get full of inaccessible files.
+* [ ] Currently this project does not have in-built rate-limiting. In the future I would like to add this in, giving a quota per user and for the server as a whole.
+* [ ] Currently this project has a lazy-delete feature, in the future to help with quota management I would like to implement this in such a way that the backend will not get full of inaccessible files.
 
 ## Code Snippets
 
