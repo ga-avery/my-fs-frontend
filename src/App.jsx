@@ -30,6 +30,7 @@ function App() {
     setIsAuthenticated(!!token);
     setAuthToken(localStorage.getItem('jwt'));
     setUser(token);
+    console.log(BACKEND);
   }, []);
 
   const getFiles = async id => {
