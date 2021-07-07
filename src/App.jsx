@@ -20,6 +20,7 @@ function App() {
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
+    console.log(BACKEND);
     if (!localStorage.getItem('jwt')) {
       console.log('is not authenticated...');
       setIsAuthenticated(false);
@@ -30,7 +31,6 @@ function App() {
     setIsAuthenticated(!!token);
     setAuthToken(localStorage.getItem('jwt'));
     setUser(token);
-    console.log(BACKEND);
   }, []);
 
   const getFiles = async id => {
