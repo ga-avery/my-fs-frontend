@@ -2,7 +2,7 @@ import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { authorizedFetch, setAuthToken } from "../util/setAuthToken";
-const BACKEND = process.env.BACKEND;
+const BACKEND = process.env.BACKEND || 'https://my-fs.herokuapp.com';
 export const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

@@ -1,7 +1,7 @@
 import { authorizedFetch } from "../util/setAuthToken";
 import { useState } from "react";
 import { Redirect } from "react-router-dom";
-const BACKEND = process.env.BACKEND;
+const BACKEND = process.env.BACKEND || 'https://my-fs.herokuapp.com';
 export const Signup = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
